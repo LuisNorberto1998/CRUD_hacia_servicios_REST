@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/models/producto_model.dart';
+import 'package:formvalidation/src/providers/productos_providers.dart';
 import 'package:formvalidation/src/utils/utils.dart' as utils;
 
 class ProductoPage extends StatefulWidget {
@@ -10,6 +11,7 @@ class ProductoPage extends StatefulWidget {
 class _ProductoPageState extends State<ProductoPage> {
   final formKey = GlobalKey<FormState>();
   ProductoModel producto = new ProductoModel();
+  final productoProvider = new ProductosProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class _ProductoPageState extends State<ProductoPage> {
     return SwitchListTile(
       value: producto.disponible,
       activeColor: Colors.deepPurple,
-      onChanged: (value) => setState((){
+      onChanged: (value) => setState(() {
         producto.disponible = value;
       }),
       title: Text('Disponible'),
@@ -102,5 +104,7 @@ class _ProductoPageState extends State<ProductoPage> {
     print(producto.titulo);
     print(producto.valor);
     print(producto.disponible);
+
+    productoProvider.crearProducto(producto);
   }
 }
